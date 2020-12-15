@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "crud-firebase-alcca": {
+      "hosting": {
+        "CRUD-FIREBASE": [
+          "crud-firebase-alcca"
+        ]
+      }
+    }
+  }
+}

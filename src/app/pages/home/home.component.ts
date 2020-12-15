@@ -3,15 +3,14 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { isNullOrUndefined } from 'util';
-import {FirebaseServiceService} from '../app/services/firebase-service.service';
+import {FirebaseServiceService} from '../../services/firebase-service.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.less']
 })
-export class AppComponent implements OnInit {
-  config : any;
+export class HomeComponent implements OnInit {config : any;
   collection = {count : 0, data:[]};
   modalRef: BsModalRef;
   estudianteForm: FormGroup;

@@ -28,6 +28,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -91,6 +93,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -120,9 +124,16 @@
               "devServerTarget": "CRUD-FIREBASE:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }
   },
-  "defaultProject": "CRUD-FIREBASE"
+  "defaultProject": "CRUD-FIREBASE",
+  "cli": {
+    "analytics": false
+  }
 }
