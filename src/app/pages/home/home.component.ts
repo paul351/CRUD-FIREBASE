@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { isNullOrUndefined } from 'util';
 import {FirebaseServiceService} from '../../services/firebase-service.service';
+import  Swal from 'sweetalert'
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,6 @@ export class HomeComponent implements OnInit {config : any;
       apellidos: [``,Validators.required],
       grado: [``,Validators.required]
     });
-
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -86,6 +86,7 @@ export class HomeComponent implements OnInit {config : any;
 
   success(){
       this.firebaseService.createAlumno(this.estudianteForm.value).then(res => {
+        Swal("","Alumno creado correctamente", "success");
         this.estudianteForm.reset();
         this.modalRef.hide();
       }).catch(error => {
@@ -97,7 +98,18 @@ export class HomeComponent implements OnInit {config : any;
     this.modalRef.hide();
   }
   delete(id: any){
-    this.firebaseService.deleteAlumno(id);
+    Swal({
+      title: "Estas seguro?",
+      text: "Estas seguro que quieres eliminar este registro?",
+      icon: "warning",
+      dangerMode: true,
+    })
+    .then(willDelete => {
+      if (willDelete) {
+        this.firebaseService.deleteAlumno(id);
+        Swal("Eliminado!", "El registro fue eliminado!", "success");
+      }
+    });
   }
 
   edit(template: TemplateRef<any>, item:any){

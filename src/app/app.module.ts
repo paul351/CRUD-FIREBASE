@@ -12,7 +12,10 @@ import { environment } from 'src/environments/environment';
 import { FooterComponent } from './pages/footer/footer.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { UploadfileComponent } from './pages/uploadfile/uploadfile.component';
+import { ShowfilesComponent } from './pages/showfiles/showfiles.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { AngularFireStorageModule} from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,8 @@ import { HomeComponent } from './pages/home/home.component';
     FooterComponent,
     HeaderComponent,
     HomeComponent,
+    UploadfileComponent,
+    ShowfilesComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,8 @@ import { HomeComponent } from './pages/home/home.component';
     ModalModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    NgxDropzoneModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
