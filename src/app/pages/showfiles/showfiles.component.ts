@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./showfiles.component.less']
 })
 export class ShowfilesComponent implements OnInit {
-
+  selected
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.selected);
+
   }
 
 }

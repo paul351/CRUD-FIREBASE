@@ -1,71 +1,63 @@
-<div class="d-flex p-2 bd-highlight">
-    <h1>Control de Alumnos</h1>
-</div>
-<hr class="mt-2 mb-3" />
 <div class="container">
-    <button type="button" class="btn btn-primary" (click)="openModal(template)">Crear Alumno</button>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Cod. Estudiante</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
-                <th scope="col">Grado</th>
-                <th scope="col">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let collections of collection.data| paginate: config">
-                <th scope="row">{{collections.cod}}</th>
-                <td>{{collections.nombre}}</td>
-                <td>{{collections.apellidos}}</td>
-                <td>{{collections.grado}}</td>
-                <td>
-                    <button class="btn btn-danger" (click)="delete(collections.id)">Eliminar</button>
-                    <button class="btn btn-primary" (click)="edit(template,collections)">Editar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <pagination-controls (pageChange)="pageChange($event)"></pagination-controls>
+    <div class="d-flex p-2 bd-highlight">
+        <h1>Control de Alumno</h1>
+    </div>
+    <hr class="mt-2 mb-3" />
+    <div class="container">
+        <button type="button" class="btn btn-primary" (click)="openModal(template)">Crear Alumno</button>
+        <ngx-datatable class="material" [rows] = "collection.data" [rowHeight]="55"  [sortType]="SortType.multi" [columnMode]="ColumnMode.force">
+            <ngx-datatable-column name="Cod."></ngx-datatable-column>
+            <ngx-datatable-column name="Nombre"></ngx-datatable-column>
+            <ngx-datatable-column name="Apellidos"></ngx-datatable-column>
+            <ngx-datatable-column name="Grado"></ngx-datatable-column>
+            <ngx-datatable-column name="Id">
+                <ng-template  ngx-datatable-header-template>
+                    Acciones
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template >
+                    <button class="btn btn-danger" (click)="delete(row.id)">Eliminar</button>
+                    <button class="btn btn-primary" (click)="edit(template, row)">Editar</button>
+                </ng-template>
+            </ngx-datatable-column>
+        </ngx-datatable>
+    </div>
+    <!-- Modal -->
+    <ng-template #template>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">{{action}} Alumno:</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <form novalidate [formGroup]="estudianteForm">
+                        <div class="form-group">
+                            <label>Codigo Estudiante</label>
+                            <input type="number" formControlName="cod" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre:</label>
+                            <input type="text" formControlName="nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Apellidos:</label>
+                            <input type="text" formControlName="apellidos" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Grado:</label>
+                            <select class="form-control" formControlName="grado" select2>
+                                <option *ngFor="let arraygrado of arrayGrados" value="{{arraygrado.grado}}">
+                                    {{arraygrado.grado}}</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" (click)="success()" *ngIf="btnSave"
+                [disabled]="estudianteForm.status == 'INVALID'">Aceptar</button>
+            <button class="btn btn-success" (click)="updateAlumno()" *ngIf="btnEdit">Editar</button>
+            <button class="btn btn-danger" (click)="cancel()">Cancelar</button>
+        </div>
+    </ng-template>
 </div>
-
-<!-- Modal -->
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">{{action}} Alumno:</h4>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <form novalidate [formGroup]="estudianteForm">
-                    <div class="form-group">
-                        <label>Codigo Estudiante</label>
-                        <input type="number" formControlName="cod" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombre:</label>
-                        <input type="text" formControlName="nombre" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Apellidos:</label>
-                        <input type="text" formControlName="apellidos" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Grado:</label>
-                        <select class="form-control" formControlName="grado">
-                            <option *ngFor="let arraygrado of arrayGrados" value="{{arraygrado.grado}}">
-                                {{arraygrado.grado}}</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-success" (click)="success()" *ngIf="btnSave"
-            [disabled]="estudianteForm.status == 'INVALID'">Aceptar</button>
-        <button class="btn btn-success" (click)="updateAlumno()" *ngIf="btnEdit">Editar</button>
-        <button class="btn btn-danger" (click)="cancel()">Cancelar</button>
-    </div>
-</ng-template>

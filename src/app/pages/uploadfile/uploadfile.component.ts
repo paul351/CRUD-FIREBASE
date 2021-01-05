@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireStorage } from '@angular/fire/storage'
-import  Swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-uploadfile',
@@ -28,14 +28,13 @@ upload(){
   console.log(this.files.length);
 
   this.files.forEach( e => {
-    console.log("entra alforich"+e);
     let id = Math.random().toString(36).substring(2);
     let file = e;
     let filepath = `upload/${id}${e.name}`;
     this.storage.ref(filepath);
     this.storage.upload(filepath,file);
   });
-  Swal("","Archivos subidos correctamente", "success");
+  Swal.fire("","Archivos subidos correctamente", "success");
   this.files.length=0;
 }
 }

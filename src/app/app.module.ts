@@ -16,6 +16,8 @@ import { UploadfileComponent } from './pages/uploadfile/uploadfile.component';
 import { ShowfilesComponent } from './pages/showfiles/showfiles.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularFireStorageModule} from '@angular/fire/storage';
+import { LSelect2Module } from 'ngx-select2';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { AngularFireStorageModule} from '@angular/fire/storage';
     ReactiveFormsModule,
     FormsModule,
     NgxDropzoneModule,
+    LSelect2Module,
+    NgxDatatableModule,
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],

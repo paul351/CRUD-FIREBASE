@@ -4,15 +4,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { isNullOrUndefined } from 'util';
 import {FirebaseServiceService} from '../../services/firebase-service.service';
-import  Swal from 'sweetalert'
+import { ColumnMode, SortType } from '@swimlane/ngx-datatable'
+import  Swal from 'sweetalert2'
+import { from } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less']
 })
-export class HomeComponent implements OnInit {config : any;
+export class HomeComponent implements OnInit {
+  config : any;
   collection = {count : 0, data:[]};
+  ColumnMode = ColumnMode;
+  SortType = SortType;
   modalRef: BsModalRef;
   estudianteForm: FormGroup;
   arrayGrados: Array<any> = [];
@@ -20,7 +26,6 @@ export class HomeComponent implements OnInit {config : any;
   btnEdit: boolean;
   btnSave: boolean;
   idFirebase: String;
-  toast3: any;
   configBackdrop = {
     backdrop: true,
     ignoreBackdropClick: true
@@ -86,7 +91,7 @@ export class HomeComponent implements OnInit {config : any;
 
   success(){
       this.firebaseService.createAlumno(this.estudianteForm.value).then(res => {
-        Swal("","Alumno creado correctamente", "success");
+        Swal.fire("","Alumno creado correctamente", "success");
         this.estudianteForm.reset();
         this.modalRef.hide();
       }).catch(error => {
@@ -97,17 +102,30 @@ export class HomeComponent implements OnInit {config : any;
     this.estudianteForm.reset();
     this.modalRef.hide();
   }
-  delete(id: any){
-    Swal({
-      title: "Estas seguro?",
-      text: "Estas seguro que quieres eliminar este registro?",
-      icon: "warning",
-      dangerMode: true,
-    })
-    .then(willDelete => {
-      if (willDelete) {
+  delete(id: String){
+    console.log(id);
+    
+    Swal.fire({
+      title: 'Esta seguro?',
+      text: 'Ya no podrá recuperar el registro!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
         this.firebaseService.deleteAlumno(id);
-        Swal("Eliminado!", "El registro fue eliminado!", "success");
+        Swal.fire(
+          'Eliminado',
+          'El registro fue eliminado satisfactoriamente',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          'Registro no eliminado',
+          'error'
+        )
       }
     });
   }
