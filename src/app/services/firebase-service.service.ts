@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
+import { Alumno } from '../models/alumno';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class FirebaseServiceService {
   getGrado(){
     return this.fireStore.collection("grados").snapshotChanges()
   }
-  createAlumno(alumno:any){
+  createAlumno(alumno:Alumno){
     return this.fireStore.collection("alumnos").add(alumno);
   }
-  updateAlumno(id:any, alumno:any){
+  updateAlumno(id:any, alumno:Alumno){
     return this.fireStore.collection("alumnos").doc(id).update(alumno);
   }
   deleteAlumno(id:any){

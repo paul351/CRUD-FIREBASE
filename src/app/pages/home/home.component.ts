@@ -7,6 +7,7 @@ import {FirebaseServiceService} from '../../services/firebase-service.service';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable'
 import  Swal from 'sweetalert2'
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
