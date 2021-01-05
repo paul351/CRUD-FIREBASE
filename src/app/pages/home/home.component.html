@@ -5,21 +5,24 @@
     <hr class="mt-2 mb-3" />
     <div class="container">
         <button type="button" class="btn btn-primary" (click)="openModal(template)">Crear Alumno</button>
-        <ngx-datatable class="material" [rows] = "collection.data" [rowHeight]="55"  [sortType]="SortType.multi" [columnMode]="ColumnMode.force">
-            <ngx-datatable-column name="Cod."></ngx-datatable-column>
-            <ngx-datatable-column name="Nombre"></ngx-datatable-column>
-            <ngx-datatable-column name="Apellidos"></ngx-datatable-column>
-            <ngx-datatable-column name="Grado"></ngx-datatable-column>
-            <ngx-datatable-column name="Id">
-                <ng-template  ngx-datatable-header-template>
-                    Acciones
-                </ng-template>
-                <ng-template let-row="row" ngx-datatable-cell-template >
-                    <button class="btn btn-danger" (click)="delete(row.id)">Eliminar</button>
-                    <button class="btn btn-primary" (click)="edit(template, row)">Editar</button>
-                </ng-template>
-            </ngx-datatable-column>
-        </ngx-datatable>
+        <div>
+            <ngx-datatable class="bootstrap" [loadingIndicator]="true" [rows]="collection.data" [rowHeight]="55"  [sortType]="SortType.multi" [columnMode]="ColumnMode.force">
+                <ngx-datatable-column name="Cod."></ngx-datatable-column>
+                <ngx-datatable-column name="Nombre"></ngx-datatable-column>
+                <ngx-datatable-column name="Apellidos"></ngx-datatable-column>
+                <ngx-datatable-column name="Grado"></ngx-datatable-column>
+                <ngx-datatable-column name="">
+                    <ng-template  ngx-datatable-header-template>
+                        Acciones
+                    </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template >
+                        <button class="btn btn-danger" (click)="delete(row.id)">Eliminar</button>
+                        <button class="btn btn-primary" (click)="edit(template,row)">Editar</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+
     </div>
     <!-- Modal -->
     <ng-template #template>
@@ -32,22 +35,51 @@
                     <form novalidate [formGroup]="estudianteForm">
                         <div class="form-group">
                             <label>Codigo Estudiante</label>
-                            <input type="number" formControlName="cod" class="form-control">
+                            <input type="text" formControlName="cod" class="form-control" mask="0000-00000" required>
+                            <div *ngIf="cod.invalid && (cod.dirty || cod.touched)" class="alert alert-danger">
+                                <div *ngIf="cod.errors.required">
+                                    Codigo es requerido.
+                                </div>
+                                <div>
+                                    Codigo Invalido
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Nombre:</label>
-                            <input type="text" formControlName="nombre" class="form-control">
+                            <input type="text" required minlength="3" formControlName="nombre" class="form-control" required>
+                            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+                                <div *ngIf="nombre.errors.required">
+                                    Nombre es requerido.
+                                </div>
+                                <div *ngIf="nombre.errors.minlength">
+                                    Nombre debe tener minimo 3 caracteres.
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Apellidos:</label>
-                            <input type="text" formControlName="apellidos" class="form-control">
+                            <input type="text" required minlength="4" formControlName="apellidos" class="form-control" required>
+                            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
+                                <div *ngIf="apellidos.errors.required">
+                                    Apellido es requerido.
+                                </div>
+                                <div *ngIf="apellidos.errors.minlength">
+                                    Apellidos debe tener minimo 4 caracteres.
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Grado:</label>
-                            <select class="form-control" formControlName="grado" select2>
+                            <select class="form-control" formControlName="grado" select2 required>
                                 <option *ngFor="let arraygrado of arrayGrados" value="{{arraygrado.grado}}">
                                     {{arraygrado.grado}}</option>
                             </select>
+                            <div *ngIf="grado.invalid && (grado.dirty || grado.touched)" class="alert alert-danger">
+                                <div *ngIf="grado.errors.required">
+                                    Grado es requerido.
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -18,6 +18,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularFireStorageModule} from '@angular/fire/storage';
 import { LSelect2Module } from 'ngx-select2';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgxDropzoneModule,
     LSelect2Module,
     NgxDatatableModule,
+    NgxMaskModule.forRoot(),
     AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],

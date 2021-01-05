@@ -6,8 +6,6 @@ import { isNullOrUndefined } from 'util';
 import {FirebaseServiceService} from '../../services/firebase-service.service';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable'
 import  Swal from 'sweetalert2'
-import { from } from 'rxjs';
-
 
 @Component({
   selector: 'app-home',
@@ -37,6 +35,7 @@ export class HomeComponent implements OnInit {
     private firebaseService: FirebaseServiceService) {}
 
   ngOnInit(): void {
+
     this.idFirebase = "";
     this.estudianteForm = this.formbuilder.group({
       cod: [``,Validators.required],
@@ -44,6 +43,7 @@ export class HomeComponent implements OnInit {
       apellidos: [``,Validators.required],
       grado: [``,Validators.required]
     });
+
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -75,7 +75,18 @@ export class HomeComponent implements OnInit {
     this.btnEdit = false;
     this.btnSave = false;
   }
-
+  get cod(){
+    return this.estudianteForm.get('cod');
+  }
+  get nombre(){
+    return this.estudianteForm.get('nombre');
+  }
+  get apellidos(){
+    return this.estudianteForm.get('apellidos');
+  }
+  get grado(){
+    return this.estudianteForm.get('grado');
+  }
 
 
   pageChange(event){
@@ -104,7 +115,7 @@ export class HomeComponent implements OnInit {
   }
   delete(id: String){
     console.log(id);
-    
+
     Swal.fire({
       title: 'Esta seguro?',
       text: 'Ya no podrá recuperar el registro!',
