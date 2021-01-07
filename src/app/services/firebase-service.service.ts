@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import  Firebase  from 'firebase';
+import { map } from 'rxjs/operators'
 import { Alumno } from '../models/alumno';
 
 @Injectable({
@@ -29,5 +30,10 @@ export class FirebaseServiceService {
   }
   deleteAlumno(id:any){
     return this.fireStore.collection(this.collectionName).doc(id).delete();
+  }
+  prueba(){
+    return this.fireStore.collection(this.collectionName).snapshotChanges().pipe(map(res => {
+      
+    }));
   }
 }

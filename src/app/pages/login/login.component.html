@@ -1,33 +1,60 @@
-<div class="example-container">
-    <span class="center">Login</span>
-    <ng-container *ngIf="errorMessage">
-        <span class="error">{{errorMessage}}</span>
-    </ng-container>
+    <div class="example-container" style="background-image: url(../../../assets/bg-01.jpg); background-repeat: no-repeat; background-size: cover; background-position: center;" >
+        <div class="container bg-light opacity-2" style="border-radius: 5%; padding-bottom: 1.5%;">
+            <div style="text-align: center; margin-top: 10%; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                <span style="font-size: 250%; font-weight: 1000;">Login</span>
+            </div>
+            <ng-container *ngIf="errorMessage">
+                <span class="error">{{errorMessage}}</span>
+            </ng-container>
 
-    <form [formGroup]="loginForm">
-        <div class="form-group">
-            <label for="title">Correo*</label>
-            <input type="text" id="username" placeholder="Username" class="form-control" formControlName="username" />
-        </div>
+            <form [formGroup]="loginForm">
+                <div class="form-group">
+                    <label for="title">Correo*</label>
+                    <input type="text" id="username" placeholder="Username" class="form-control" formControlName="username" />
+                </div>
+                <div class="form-group">
+                    <label for="description">Contraseña*</label>
+                    <input id="password" type="password" placeholder="Password" class="form-control"
+                        formControlName="password" />
+                </div>
 
-        <div class="form-group">
-            <label for="description">Contraseña*</label>
-            <input id="password" type="password" placeholder="Password" class="form-control"
-                formControlName="password" />
+                <div class="buttons-container center btn-lg btn-block">
+                    <button class="btn btn-info btn-lg btn-block" (click)="signIn()">
+                        Iniciar sesion
+                    </button>
+                    <button class="btn btn-success btn-lg btn-block" (click)="createUser()">
+                        Crear cuenta
+                    </button>
+                    <button class="btn btn-danger btn-lg btn-block" (click)="onGoogle()">
+                        Google
+                    </button>
+                    <button disabled="true" class="btn btn-primary btn-lg btn-block" (click)="onFacebook()">
+                        Facebook
+                    </button>
+                </div>
+                Olvidaste tu contraseña? <a (click)="resetPassword(recovertemplate)"  [routerLink]="[]"  >Haz clic aquí</a>
+            </form>
         </div>
+    </div>
 
-        <div class="buttons-container center">
-            <button class="btn btn-primary" (click)="signIn()">
-                Iniciar sesion
-            </button>
-            <button class="btn btn-success" (click)="createUser()">
-                Crear cuenta
-            </button>
+    <!-- Modal -->
+    <ng-template #recovertemplate>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Recuperar contraseña</h4>
         </div>
-        <div class="btn-lg buttons-container  center">
-            <button class="btn btn-danger" (click)="onGoogle()">
-                Google
-            </button>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <form novalidate [formGroup]="recoverForm">
+                        <div class="form-group">
+                            <label>Correo*</label>
+                            <input type="text" formControlName="email" class="form-control">
+                        </div>
+                    </form>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+        <div class="modal-footer">
+        <button class="btn btn-info btn-lg btn-block" (click)="sendRecover()" >Enviar</button>
+        </div>
+    </ng-template>

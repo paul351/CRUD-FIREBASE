@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginService } from 'src/app/services/login/login.service';
-import  Firebase  from 'firebase';
+import  Firebase  from 'firebase/app';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

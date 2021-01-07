@@ -4,7 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {FirebaseServiceService} from '../../services/firebase-service.service';
 import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
 import  Swal from 'sweetalert2';
-import  Firebase  from 'firebase';
+import  Firebase  from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
     this.afAuth.user.subscribe(user => {
       if (user){
         this.user = user;
-        console.log(user.email)
       }else{
         this.router.navigate(['/login']);
       }
