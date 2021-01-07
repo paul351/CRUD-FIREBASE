@@ -1,0 +1,33 @@
+<div class="example-container">
+    <span class="center">Login</span>
+    <ng-container *ngIf="errorMessage">
+        <span class="error">{{errorMessage}}</span>
+    </ng-container>
+
+    <form [formGroup]="loginForm">
+        <div class="form-group">
+            <label for="title">Correo*</label>
+            <input type="text" id="username" placeholder="Username" class="form-control" formControlName="username" />
+        </div>
+
+        <div class="form-group">
+            <label for="description">Contraseña*</label>
+            <input id="password" type="password" placeholder="Password" class="form-control"
+                formControlName="password" />
+        </div>
+
+        <div class="buttons-container center">
+            <button class="btn btn-primary" (click)="signIn()">
+                Iniciar sesion
+            </button>
+            <button class="btn btn-success" (click)="createUser()">
+                Crear cuenta
+            </button>
+        </div>
+        <div class="btn-lg buttons-container  center">
+            <button class="btn btn-danger" (click)="onGoogle()">
+                Google
+            </button>
+        </div>
+    </form>
+</div>

@@ -16,9 +16,11 @@ import { UploadfileComponent } from './pages/uploadfile/uploadfile.component';
 import { ShowfilesComponent } from './pages/showfiles/showfiles.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularFireStorageModule} from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LSelect2Module } from 'ngx-select2';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule } from 'ngx-mask';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { NgxMaskModule } from 'ngx-mask';
     HomeComponent,
     UploadfileComponent,
     ShowfilesComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { NgxMaskModule } from 'ngx-mask';
     NgxDatatableModule,
     NgxMaskModule.forRoot(),
     AngularFireStorageModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],

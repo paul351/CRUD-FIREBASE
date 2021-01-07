@@ -5,4 +5,5 @@ export class Alumno {
     public nombre: string;
     public apellidos: string;
     public grado: Grados;
+    public userId: string;
 }

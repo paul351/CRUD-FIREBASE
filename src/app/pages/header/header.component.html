@@ -6,7 +6,7 @@
         (click)="toggleCollapsed()">
     <span class="navbar-toggler-icon"></span>
     </button>
-    <div id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
+    <div class="row" id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/home']">Home</a>
@@ -17,18 +17,16 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/showfiles']">Mostrar Archivos</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" >Action</a>
-                    <a class="dropdown-item" >Another action</a>
-                    <a class="dropdown-item" >Something else here</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/login']" *ngIf="out" (click)="logout()">Cerrar sesion</a>
             </li>
         </ul>
+    </div>
+    <div class="row ml-auto">
+        <div class="container text-light pb--10">
+            {{user.email}}
+            <img src={{user.photoURL}} style="height: 80%; width: 20%; border-radius: 50%;">
+        </div>
     </div>
 </nav>
 

@@ -1,11 +1,13 @@
-import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { isNullOrUndefined } from 'util';
 import {FirebaseServiceService} from '../../services/firebase-service.service';
-import { ColumnMode, SortType } from '@swimlane/ngx-datatable'
-import  Swal from 'sweetalert2'
+import { ColumnMode, SortType } from '@swimlane/ngx-datatable';
+import  Swal from 'sweetalert2';
+import  Firebase  from 'firebase';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -31,19 +33,48 @@ export class HomeComponent implements OnInit {
   };
 
   constructor(
+    private afAuth: AngularFireAuth,
     private modalService: BsModalService,
     public formbuilder: FormBuilder,
-    private firebaseService: FirebaseServiceService) {}
+    private firebaseService: FirebaseServiceService,
+    private router: Router,
+    ) {}
+
+  user: Firebase.User
 
   ngOnInit(): void {
 
-    this.idFirebase = "";
+    this.afAuth.user.subscribe(user => {
+      if (user){
+        this.user = user;
+        console.log(user.email)
+      }else{
+        this.router.navigate(['/login']);
+      }
+    })
+
     this.estudianteForm = this.formbuilder.group({
       cod: [``,Validators.required],
       nombre: [``,Validators.required],
       apellidos: [``,Validators.required],
-      grado: [``,Validators.required]
+      grado: [``,Validators.required],
+      uid: "o4VbEaUkljOFHgtRLr2bCgiCYTg2"
     });
+
+    this.firebaseService.getAlumno().subscribe(res => {
+      this.collection.data = res.map((call:any) => {
+        return { cod: call.payload.doc.data().cod,
+              nombre: call.payload.doc.data().nombre,
+              apellidos: call.payload.doc.data().apellidos,
+              grado: call.payload.doc.data().grado,
+              id: call.payload.doc.id
+            }
+      });
+      },error => {
+        console.error(error);
+      });
+
+    this.idFirebase = "";
 
     this.config = {
       itemsPerPage: 5,
@@ -51,20 +82,6 @@ export class HomeComponent implements OnInit {
       totalItems: this.collection.count
     };
 
-    this.firebaseService.getAlumno().subscribe(res => {
-    this.collection.data = res.map((call:any) => {
-      return{
-        cod: call.payload.doc.data().cod,
-        nombre: call.payload.doc.data().nombre,
-        apellidos: call.payload.doc.data().apellidos,
-        grado: call.payload.doc.data().grado,
-        id: call.payload.doc.id
-      }
-    });
-    },error => {
-      console.error(error);
-
-    });
     this.firebaseService.getGrado().subscribe(res =>{
       this.arrayGrados = res.map((call:any) => {
         return{
@@ -75,7 +92,9 @@ export class HomeComponent implements OnInit {
 
     this.btnEdit = false;
     this.btnSave = false;
+
   }
+
   get cod(){
     return this.estudianteForm.get('cod');
   }
@@ -88,7 +107,6 @@ export class HomeComponent implements OnInit {
   get grado(){
     return this.estudianteForm.get('grado');
   }
-
 
   pageChange(event){
     this.config.currentPage = event;
@@ -114,9 +132,8 @@ export class HomeComponent implements OnInit {
     this.estudianteForm.reset();
     this.modalRef.hide();
   }
-  delete(id: String){
-    console.log(id);
 
+  delete(id: String){
     Swal.fire({
       title: 'Esta seguro?',
       text: 'Ya no podrá recuperar el registro!',
@@ -151,13 +168,14 @@ export class HomeComponent implements OnInit {
       nombre: item.nombre,
       apellidos: item.apellidos,
       grado: item.grado,
+      uid: this.user.uid
     });
     this.idFirebase = item.id;
     this.modalRef = this.modalService.show(template,this.configBackdrop);
   }
 
   updateAlumno(){
-    if(!isNullOrUndefined(this.idFirebase)){
+    if( this.idFirebase === null || this.idFirebase === undefined){
       this.firebaseService.updateAlumno(this.idFirebase,this.estudianteForm.value).then(res => {
 
       }).catch(error =>{
