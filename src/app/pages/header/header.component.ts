@@ -10,7 +10,6 @@ import  Firebase  from 'firebase/app';
 export class HeaderComponent implements OnInit {
   @Input()
   user: Firebase.User;
-
   out:boolean=false;
   constructor(
     private loginService: LoginService,
@@ -32,7 +31,6 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    console.log("logout");
     this.loginService.logout();
     this.out = false;
   }

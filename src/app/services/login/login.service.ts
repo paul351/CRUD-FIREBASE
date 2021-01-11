@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import Firebase from 'firebase/app';
+import { promise } from 'protractor';
 import { User } from 'src/app/models/usuario';
 
 @Injectable({
@@ -28,6 +29,7 @@ export class LoginService {
   }
 
   createUser(user: User){
+    this.sendemail();
     return this.afAuth.createUserWithEmailAndPassword(user.username,user.password);
   }
 
@@ -37,6 +39,15 @@ export class LoginService {
 
   recoverAccount(email:string){
     return this.afAuth.sendPasswordResetEmail(email);
+  }
+
+  sendemail(){
+    this.afAuth.currentUser.then(res => {
+      console.log(res.sendEmailVerification())
+      //return res.sendEmailVerification();
+    }).catch(err => {
+        console.error(err);
+      });
   }
 
 }

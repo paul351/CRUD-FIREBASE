@@ -21,6 +21,9 @@ import { LSelect2Module } from 'ngx-select2';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxMaskModule } from 'ngx-mask';
 import { LoginComponent } from './pages/login/login.component';
+import { NgFallimgModule } from 'ng-fallimg';
+import { EmailverificationComponent } from './pages/emailverification/emailverification.component';
+
 
 @NgModule({
   declarations: [
@@ -31,9 +34,12 @@ import { LoginComponent } from './pages/login/login.component';
     UploadfileComponent,
     ShowfilesComponent,
     LoginComponent,
+    EmailverificationComponent,
   ],
   imports: [
     BrowserModule,
+    NgFallimgModule.forRoot({
+      default: "../assets/user.png"}),
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxPaginationModule,

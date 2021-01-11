@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit {
     this.afAuth.user.subscribe(user => {
       if (user){
         this.user = user;
+        if(user.emailVerified==false){
+          this.router.navigate(['/emailVerification']);
+        }
       }else{
         this.router.navigate(['/login']);
       }
@@ -175,8 +178,7 @@ export class HomeComponent implements OnInit {
 
   updateAlumno(){
     if( this.idFirebase === null || this.idFirebase === undefined){
-      this.firebaseService.updateAlumno(this.idFirebase,this.estudianteForm.value).then(res => {
-
+      this.firebaseService.updateAlumno(this.idFirebase,this.estudianteForm.value).then(() => {
       }).catch(error =>{
         console.error(error);
       });

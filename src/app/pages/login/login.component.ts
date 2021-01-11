@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   createUser() {
     this.loginService.createUser(this.loginForm.value).then(() => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/emailVerification']);
     }).catch(response => {
       this.errorMessage = response.message;
     });
