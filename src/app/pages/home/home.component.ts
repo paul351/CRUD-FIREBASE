@@ -43,10 +43,33 @@ export class HomeComponent implements OnInit {
   user: Firebase.User
 
   ngOnInit(): void {
-
+    let useruid = "";
     this.afAuth.user.subscribe(user => {
       if (user){
         this.user = user;
+        useruid = user.uid;
+        this.estudianteForm = this.formbuilder.group({
+          cod: [``,Validators.required],
+          nombre: [``,Validators.required],
+          apellidos: [``,Validators.required],
+          grado: [``,Validators.required],
+          uid: useruid
+        });
+
+        this.firebaseService.getAlumnos(useruid).subscribe(res => {
+          this.collection.data = res.map((call:any) => {
+            return { cod: call.payload.doc.data().cod,
+                  nombre: call.payload.doc.data().nombre,
+                  apellidos: call.payload.doc.data().apellidos,
+                  grado: call.payload.doc.data().grado,
+                  id: call.payload.doc.id
+                }
+          });
+          },error => {
+            console.error(error);
+          });
+        console.log("UserUID Auth: \n"+user.uid);
+
         if(user.emailVerified==false){
           this.router.navigate(['/emailVerification']);
         }
@@ -55,26 +78,6 @@ export class HomeComponent implements OnInit {
       }
     })
 
-    this.estudianteForm = this.formbuilder.group({
-      cod: [``,Validators.required],
-      nombre: [``,Validators.required],
-      apellidos: [``,Validators.required],
-      grado: [``,Validators.required],
-      uid: "o4VbEaUkljOFHgtRLr2bCgiCYTg2"
-    });
-
-    this.firebaseService.getAlumno().subscribe(res => {
-      this.collection.data = res.map((call:any) => {
-        return { cod: call.payload.doc.data().cod,
-              nombre: call.payload.doc.data().nombre,
-              apellidos: call.payload.doc.data().apellidos,
-              grado: call.payload.doc.data().grado,
-              id: call.payload.doc.id
-            }
-      });
-      },error => {
-        console.error(error);
-      });
 
     this.idFirebase = "";
 
@@ -177,7 +180,12 @@ export class HomeComponent implements OnInit {
   }
 
   updateAlumno(){
-    if( this.idFirebase === null || this.idFirebase === undefined){
+    if( this.idFirebase != null || this.idFirebase != undefined){
+      Swal.fire(
+        'Editado',
+        'El registro fue editado satisfactoriamente',
+        'success'
+      )
       this.firebaseService.updateAlumno(this.idFirebase,this.estudianteForm.value).then(() => {
       }).catch(error =>{
         console.error(error);

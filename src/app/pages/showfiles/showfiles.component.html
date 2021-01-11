@@ -10,3 +10,11 @@
 </div>
 
 <h1>Modulo en mantenimiento (:</h1>
+<h1> Imagen prueba</h1>
+<div class="card" *ngFor="let listUrl of listUrls" style="width: 20rem;">
+	<div class="container">
+		<div style="float: right;">
+			<img class="card-img-top" [src]="listUrl.url | getDownloadURL">
+		</div>
+	</div>
+</div>

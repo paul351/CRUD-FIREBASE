@@ -13,8 +13,8 @@ export class FirebaseServiceService {
   collectionName: string = "alumnos";
   constructor(private fireStore: AngularFirestore) { }
 
-  getAlumnos(uid:string):Observable<Firebase.firestore.QuerySnapshot>{
-    return this.fireStore.collection<Alumno>(this.collectionName,ref => ref.where("uid", "==", uid)).get();
+  getAlumnos(uid:string){
+    return this.fireStore.collection<Alumno>(this.collectionName,ref => ref.where("uid", "==", uid)).snapshotChanges();
   }
   getAlumno() {
     return this.fireStore.collection<Alumno>(this.collectionName).snapshotChanges();
@@ -30,10 +30,5 @@ export class FirebaseServiceService {
   }
   deleteAlumno(id:any){
     return this.fireStore.collection(this.collectionName).doc(id).delete();
-  }
-  prueba(){
-    return this.fireStore.collection(this.collectionName).snapshotChanges().pipe(map(res => {
-      
-    }));
   }
 }
