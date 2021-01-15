@@ -5,6 +5,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ShowfilesComponent } from './pages/showfiles/showfiles.component';
 import { UploadfileComponent } from './pages/uploadfile/uploadfile.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { PruebaComponent } from './pages/prueba/prueba.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -13,6 +15,8 @@ const routes: Routes = [
   {path: 'showfiles', component: ShowfilesComponent},
   {path: 'login', component: LoginComponent},
   {path: 'emailVerification', component: EmailverificationComponent},
+  {path: 'calendar', component: CalendarComponent},
+  {path: 'prueba', component: PruebaComponent},
   {path: '**', redirectTo: 'home', pathMatch:'full'}
 ];
 

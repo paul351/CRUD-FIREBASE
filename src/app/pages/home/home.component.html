@@ -4,18 +4,22 @@
     </div>
     <hr class="mt-2 mb-3" />
     <div class="container">
+
+        <input type="text" mwlFlatpickr [(ngModel)]="selectedDate" [altInput]="true" [convertModelValue]="true" [enableTime]="true">
+
         <button type="button" class="btn btn-primary" (click)="openModal(template)">Crear Alumno</button>
         <div>
-            <ngx-datatable class="bootstrap" [loadingIndicator]="true" [rows]="collection.data" [rowHeight]="50"  [sortType]="SortType.multi" [columnMode]="ColumnMode.force">
+            <ngx-datatable class="bootstrap" [loadingIndicator]="true" [rows]="collection.data" [rowHeight]="50"
+                [sortType]="SortType.multi" [columnMode]="ColumnMode.force">
                 <ngx-datatable-column name="Cod."></ngx-datatable-column>
                 <ngx-datatable-column name="Nombre"></ngx-datatable-column>
                 <ngx-datatable-column name="Apellidos"></ngx-datatable-column>
                 <ngx-datatable-column name="Grado"></ngx-datatable-column>
                 <ngx-datatable-column name="">
-                    <ng-template  ngx-datatable-header-template>
+                    <ng-template ngx-datatable-header-template>
                         Acciones
                     </ng-template>
-                    <ng-template let-row="row" ngx-datatable-cell-template >
+                    <ng-template let-row="row" ngx-datatable-cell-template>
                         <button class="btn btn-danger" (click)="delete(row.id)">Eliminar</button>
                         <button class="btn btn-primary" (click)="edit(template,row)">Editar</button>
                     </ng-template>
@@ -46,7 +50,8 @@
                         </div>
                         <div class="form-group">
                             <label>Nombre:</label>
-                            <input type="text" required minlength="3" formControlName="nombre" class="form-control" required>
+                            <input type="text" required minlength="3" formControlName="nombre" class="form-control"
+                                required>
                             <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
                                 <div *ngIf="nombre.errors.required">
                                     Nombre es requerido.
@@ -58,8 +63,10 @@
                         </div>
                         <div class="form-group">
                             <label>Apellidos:</label>
-                            <input type="text" required minlength="4" formControlName="apellidos" class="form-control" required>
-                            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
+                            <input type="text" required minlength="4" formControlName="apellidos" class="form-control"
+                                required>
+                            <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
+                                class="alert alert-danger">
                                 <div *ngIf="apellidos.errors.required">
                                     Apellido es requerido.
                                 </div>

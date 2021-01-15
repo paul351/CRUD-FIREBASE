@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
+  selectedDate
+
   config : any;
   collection = {count : 0, data:[]};
   ColumnMode = ColumnMode;

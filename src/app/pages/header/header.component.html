@@ -18,6 +18,12 @@
                 <a class="nav-link" [routerLink]="['/showfiles']">Mostrar Archivos</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link"  [routerLink]="['/calendar']">Eventos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/prueba']">prueba</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/login']" *ngIf="out" (click)="logout()">Cerrar sesion</a>
             </li>
         </ul>
@@ -25,7 +31,7 @@
     <div class="row ml-auto">
         <div class="container text-light">
             {{user.email}}
-            <img src="{{user.photoURL}}"  style="height: 80%; width: 20%; border-radius: 50%;" fallimg="default">
+            <div class="ml-4"><img src="{{user.photoURL}}"  style="height: 40px; width: 40px; border-radius: 50%;" fallimg="default"></div>
         </div>
     </div>
 </nav>

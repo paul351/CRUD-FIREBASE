@@ -30,9 +30,10 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/flatpickr/dist/flatpickr.min.css",
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/flatpickr/dist/flatpickr.min.js"]
           },
           "configurations": {
             "production": {
@@ -95,9 +96,10 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+
               "src/styles.less"
             ],
-            "scripts": []
+            "scripts": ["./node_modules/flatpickr/dist/flatpickr.min.js"]
           }
         },
         "lint": {
