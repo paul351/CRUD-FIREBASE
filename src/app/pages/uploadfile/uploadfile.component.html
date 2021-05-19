@@ -2,12 +2,12 @@
     <ngx-dropzone (change)="onSelect($event)">
         <ngx-dropzone-label>Clic o arrastra un archivo</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+            <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
         </ngx-dropzone-preview>
     </ngx-dropzone>
     <button type="button" class="btn btn-primary"[disabled]="files.length==0" (click)="upload()">Subir</button>
 
     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+       <ngx-dropzone-label>{{ f.name }} </ngx-dropzone-label>  <!-- ({{ f.type }}) -->
     </ngx-dropzone-image-preview>
 </div>
